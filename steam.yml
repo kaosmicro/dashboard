@@ -1,0 +1,33 @@
+name: Update Steam Activity
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+  workflow_dispatch:
+
+jobs:
+  update-steam:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update Steam
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: node scripts/update-steam.js
+        env:
+          STEAM_API_KEY: ${{ secrets.245E8A95E1A6BD0E2640B23F1881993F }}
+          STEAM_ID: ${{ secrets.76561198164175537 }}
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add Blog/Scripts/steam.json
+          git commit -m "Update Steam activity" || exit 0
+          git push
