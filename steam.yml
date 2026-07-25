@@ -14,16 +14,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Update Steam
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - run: node scripts/update-steam.js
-env:
-  STEAM_API_KEY: 245E8A95E1A6BD0E2640B23F1881993F
-  STEAM_ID: 245E8A95E1A6BD0E2640B23F1881993F
-
+      - name: Run Steam updater
+        run: node scripts/update-steam.js
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          STEAM_ID: ${{ secrets.STEAM_ID }}
 
       - name: Commit changes
         run: |
