@@ -5,7 +5,7 @@ const STEAM_ID = process.env.STEAM_ID;
 
 const url =
     `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/` +
-    `?key=245E8A95E1A6BD0E2640B23F1881993F&steamid=76561198164175537&format=json`;
+    `?key=${API_KEY}&steamid=${STEAM_ID}&format=json`;
 
 async function updateSteam() {
 
